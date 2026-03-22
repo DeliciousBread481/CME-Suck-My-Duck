@@ -39,7 +39,7 @@ public class Object2LongWrappedMap<K> extends AbstractWrappedContainer<Object2Lo
 
 	@Override
 	public boolean containsValue(long value) {
-		this.logQuery("containsValue(long)", Log.LOG_STRATEGY.logAnyway());
+		this.logQuery("containsValue(long)", Log.LOG_STRATEGY.test(value));
 		try {
 			return this.wrapped.containsValue(value);
 		} catch (RuntimeException e) {
@@ -55,7 +55,7 @@ public class Object2LongWrappedMap<K> extends AbstractWrappedContainer<Object2Lo
 
 	@Override
 	public long put(K key, long value) {
-		this.logModify("put(Object, long)", Log.LOG_STRATEGY.logAnyway());
+		this.logModify("put(Object, long)", Log.LOG_STRATEGY.test(value));
 		try {
 			return this.wrapped.put(key, value);
 		} catch (RuntimeException e) {
@@ -91,7 +91,7 @@ public class Object2LongWrappedMap<K> extends AbstractWrappedContainer<Object2Lo
 
 	@Override
 	public void putAll(Map<? extends K, ? extends Long> m) {
-		this.logModify("putAll(Map)", Log.LOG_STRATEGY.logAnyway());
+		this.logModify("putAll(Map)", m.values().stream().anyMatch(Log.LOG_STRATEGY));
 		try {
 			this.wrapped.putAll(m);
 		} catch (RuntimeException e) {
@@ -111,7 +111,7 @@ public class Object2LongWrappedMap<K> extends AbstractWrappedContainer<Object2Lo
 
 	@Override
 	public void defaultReturnValue(long rv) {
-		this.logModify("defaultReturnValue(long)", Log.LOG_STRATEGY.logAnyway());
+		this.logModify("defaultReturnValue(long)", Log.LOG_STRATEGY.test(rv));
 		this.wrapped.defaultReturnValue(rv);
 	}
 
@@ -140,7 +140,7 @@ public class Object2LongWrappedMap<K> extends AbstractWrappedContainer<Object2Lo
 
 	@Override
 	public long getOrDefault(Object key, long defaultValue) {
-		this.logQuery("getOrDefault(Object, long)", Log.LOG_STRATEGY.logAnyway());
+		this.logQuery("getOrDefault(Object, long)", Log.LOG_STRATEGY.test(defaultValue));
 		return this.wrapped.getOrDefault(key, defaultValue);
 	}
 
@@ -166,7 +166,7 @@ public class Object2LongWrappedMap<K> extends AbstractWrappedContainer<Object2Lo
 
 	@Override
 	public long putIfAbsent(K key, long value) {
-		this.logModify("putIfAbsent(Object, long)", Log.LOG_STRATEGY.logAnyway());
+		this.logModify("putIfAbsent(Object, long)", Log.LOG_STRATEGY.test(value));
 		try {
 			return this.wrapped.putIfAbsent(key, value);
 		} catch (RuntimeException e) {
@@ -176,7 +176,7 @@ public class Object2LongWrappedMap<K> extends AbstractWrappedContainer<Object2Lo
 
 	@Override @Nullable
 	public Long putIfAbsent(K key, Long value) {
-		this.logModify("putIfAbsent(Object, Long)", Log.LOG_STRATEGY.logAnyway());
+		this.logModify("putIfAbsent(Object, Long)", Log.LOG_STRATEGY.test(value));
 		try {
 			return this.wrapped.putIfAbsent(key, value);
 		} catch (RuntimeException e) {
@@ -186,7 +186,7 @@ public class Object2LongWrappedMap<K> extends AbstractWrappedContainer<Object2Lo
 
 	@Override
 	public boolean remove(Object key, long value) {
-		this.logModify("remove(Object, long)", Log.LOG_STRATEGY.logAnyway());
+		this.logModify("remove(Object, long)", Log.LOG_STRATEGY.test(value));
 		try {
 			return this.wrapped.remove(key, value);
 		} catch (RuntimeException e) {
@@ -196,7 +196,7 @@ public class Object2LongWrappedMap<K> extends AbstractWrappedContainer<Object2Lo
 
 	@Override
 	public boolean remove(Object key, Object value) {
-		this.logModify("remove(Object, Object)", Log.LOG_STRATEGY.logAnyway());
+		this.logModify("remove(Object, Object)", Log.LOG_STRATEGY.test(value));
 		try {
 			return this.wrapped.remove(key, value);
 		} catch (RuntimeException e) {
@@ -206,7 +206,7 @@ public class Object2LongWrappedMap<K> extends AbstractWrappedContainer<Object2Lo
 
 	@Override
 	public boolean replace(K key, long oldValue, long newValue) {
-		this.logModify("replace(Object, long, long)", Log.LOG_STRATEGY.logAnyway());
+		this.logModify("replace(Object, long, long)", Log.LOG_STRATEGY.test(newValue));
 		try {
 			return this.wrapped.replace(key, oldValue, newValue);
 		} catch (RuntimeException e) {
@@ -216,7 +216,7 @@ public class Object2LongWrappedMap<K> extends AbstractWrappedContainer<Object2Lo
 
 	@Override
 	public long replace(K key, long value) {
-		this.logModify("replace(Object, long)", Log.LOG_STRATEGY.logAnyway());
+		this.logModify("replace(Object, long)", Log.LOG_STRATEGY.test(value));
 		try {
 			return this.wrapped.replace(key, value);
 		} catch (RuntimeException e) {
@@ -226,7 +226,7 @@ public class Object2LongWrappedMap<K> extends AbstractWrappedContainer<Object2Lo
 
 	@Override
 	public boolean replace(K key, Long oldValue, Long newValue) {
-		this.logModify("replace(Object, Long, Long)", Log.LOG_STRATEGY.logAnyway());
+		this.logModify("replace(Object, Long, Long)", Log.LOG_STRATEGY.test(newValue));
 		try {
 			return this.wrapped.replace(key, oldValue, newValue);
 		} catch (RuntimeException e) {
@@ -236,7 +236,7 @@ public class Object2LongWrappedMap<K> extends AbstractWrappedContainer<Object2Lo
 
 	@Override @Nullable
 	public Long replace(K key, Long value) {
-		this.logModify("replace(Object, Long)", Log.LOG_STRATEGY.logAnyway());
+		this.logModify("replace(Object, Long)", Log.LOG_STRATEGY.test(value));
 		try {
 			return this.wrapped.replace(key, value);
 		} catch (RuntimeException e) {
@@ -316,7 +316,7 @@ public class Object2LongWrappedMap<K> extends AbstractWrappedContainer<Object2Lo
 
 	@Override
 	public long merge(K key, long value, BiFunction<? super Long, ? super Long, ? extends Long> remappingFunction) {
-		this.logModify("merge(Object, long, BiFunction)", Log.LOG_STRATEGY.logAnyway());
+		this.logModify("merge(Object, long, BiFunction)", Log.LOG_STRATEGY.test(value));
 		try {
 			return this.wrapped.merge(key, value, remappingFunction);
 		} catch (RuntimeException e) {
@@ -326,7 +326,7 @@ public class Object2LongWrappedMap<K> extends AbstractWrappedContainer<Object2Lo
 
 	@Override
 	public long mergeLong(K key, long value, LongBinaryOperator remappingFunction) {
-		this.logModify("mergeLong(Object, long, LongBinaryOperator)", Log.LOG_STRATEGY.logAnyway());
+		this.logModify("mergeLong(Object, long, LongBinaryOperator)", Log.LOG_STRATEGY.test(value));
 		try {
 			return this.wrapped.mergeLong(key, value, remappingFunction);
 		} catch (RuntimeException e) {

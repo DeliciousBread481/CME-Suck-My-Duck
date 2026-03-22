@@ -30,7 +30,7 @@ public class LongWrappedSet extends AbstractWrappedContainer<LongSet> implements
 
 	@Override
 	public boolean contains(long o) {
-		this.logQuery("contains(long)", Log.LOG_STRATEGY.logAnyway());
+		this.logQuery("contains(long)", Log.LOG_STRATEGY.test(o));
 		try {
 			return this.wrapped.contains(o);
 		} catch (RuntimeException e) {
@@ -82,7 +82,7 @@ public class LongWrappedSet extends AbstractWrappedContainer<LongSet> implements
 
 	@Override
 	public boolean add(long t) {
-		this.logModify("add(long)", Log.LOG_STRATEGY.logAnyway());
+		this.logModify("add(long)", Log.LOG_STRATEGY.test(t));
 		try {
 			return this.wrapped.add(t);
 		} catch (RuntimeException e) {
@@ -92,7 +92,7 @@ public class LongWrappedSet extends AbstractWrappedContainer<LongSet> implements
 
 	@Override
 	public boolean remove(long o) {
-		this.logModify("remove(long)", Log.LOG_STRATEGY.logAnyway());
+		this.logModify("remove(long)", Log.LOG_STRATEGY.test(o));
 		try {
 			return this.wrapped.remove(o);
 		} catch (RuntimeException e) {
@@ -102,7 +102,7 @@ public class LongWrappedSet extends AbstractWrappedContainer<LongSet> implements
 
 	@Override
 	public boolean containsAll(Collection<?> c) {
-		this.logQuery("containsAll(Collection)", Log.LOG_STRATEGY.logAnyway());
+		this.logQuery("containsAll(Collection)", c.stream().anyMatch(Log.LOG_STRATEGY));
 		try {
 			return this.wrapped.containsAll(c);
 		} catch (RuntimeException e) {
@@ -112,7 +112,7 @@ public class LongWrappedSet extends AbstractWrappedContainer<LongSet> implements
 
 	@Override
 	public boolean addAll(Collection<? extends Long> c) {
-		this.logModify("addAll(Collection)", Log.LOG_STRATEGY.logAnyway());
+		this.logModify("addAll(Collection)", c.stream().anyMatch(Log.LOG_STRATEGY));
 		try {
 			return this.wrapped.addAll(c);
 		} catch (RuntimeException e) {
@@ -122,7 +122,7 @@ public class LongWrappedSet extends AbstractWrappedContainer<LongSet> implements
 
 	@Override
 	public boolean removeAll(Collection<?> c) {
-		this.logModify("removeAll(Collection)", Log.LOG_STRATEGY.logAnyway());
+		this.logModify("removeAll(Collection)", c.stream().anyMatch(Log.LOG_STRATEGY));
 		try {
 			return this.wrapped.removeAll(c);
 		} catch (RuntimeException e) {
@@ -132,7 +132,7 @@ public class LongWrappedSet extends AbstractWrappedContainer<LongSet> implements
 
 	@Override
 	public boolean retainAll(Collection<?> c) {
-		this.logModify("retainAll(Collection)", Log.LOG_STRATEGY.logAnyway());
+		this.logModify("retainAll(Collection)", c.stream().anyMatch(Log.LOG_STRATEGY));
 		try {
 			return this.wrapped.retainAll(c);
 		} catch (RuntimeException e) {
@@ -142,7 +142,7 @@ public class LongWrappedSet extends AbstractWrappedContainer<LongSet> implements
 
 	@Override
 	public boolean containsAll(LongCollection c) {
-		this.logQuery("containsAll(LongCollection)", Log.LOG_STRATEGY.logAnyway());
+		this.logQuery("containsAll(LongCollection)", c.longStream().boxed().anyMatch(Log.LOG_STRATEGY));
 		try {
 			return this.wrapped.containsAll(c);
 		} catch (RuntimeException e) {
@@ -152,7 +152,7 @@ public class LongWrappedSet extends AbstractWrappedContainer<LongSet> implements
 
 	@Override
 	public boolean addAll(LongCollection c) {
-		this.logModify("addAll(LongCollection)", Log.LOG_STRATEGY.logAnyway());
+		this.logModify("addAll(LongCollection)", c.longStream().boxed().anyMatch(Log.LOG_STRATEGY));
 		try {
 			return this.wrapped.addAll(c);
 		} catch (RuntimeException e) {
@@ -162,7 +162,7 @@ public class LongWrappedSet extends AbstractWrappedContainer<LongSet> implements
 
 	@Override
 	public boolean removeAll(LongCollection c) {
-		this.logModify("removeAll(LongCollection)", Log.LOG_STRATEGY.logAnyway());
+		this.logModify("removeAll(LongCollection)", c.longStream().boxed().anyMatch(Log.LOG_STRATEGY));
 		try {
 			return this.wrapped.removeAll(c);
 		} catch (RuntimeException e) {
@@ -172,7 +172,7 @@ public class LongWrappedSet extends AbstractWrappedContainer<LongSet> implements
 
 	@Override
 	public boolean retainAll(LongCollection c) {
-		this.logModify("retainAll(LongCollection)", Log.LOG_STRATEGY.logAnyway());
+		this.logModify("retainAll(LongCollection)", c.longStream().boxed().anyMatch(Log.LOG_STRATEGY));
 		try {
 			return this.wrapped.retainAll(c);
 		} catch (RuntimeException e) {

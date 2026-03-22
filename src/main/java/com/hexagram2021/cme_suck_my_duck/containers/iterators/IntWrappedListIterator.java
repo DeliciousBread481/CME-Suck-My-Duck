@@ -85,7 +85,7 @@ public class IntWrappedListIterator extends AbstractWrappedContainer<IntListIter
 
 	@Override
 	public void set(int t) {
-		this.logQuery("set(int)", Log.LOG_STRATEGY.logAnyway());
+		this.logQuery("set(int)", Log.LOG_STRATEGY.test(t));
 		try {
 			this.wrapped.set(t);
 		} catch (RuntimeException e) {
@@ -95,7 +95,7 @@ public class IntWrappedListIterator extends AbstractWrappedContainer<IntListIter
 
 	@Override
 	public void add(int t) {
-		this.logModify("add(int)", Log.LOG_STRATEGY.logAnyway());
+		this.logModify("add(int)", Log.LOG_STRATEGY.test(t));
 		try {
 			this.wrapped.add(t);
 		} catch (RuntimeException e) {

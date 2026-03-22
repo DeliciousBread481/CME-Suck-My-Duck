@@ -39,7 +39,7 @@ public class Object2IntWrappedMap<K> extends AbstractWrappedContainer<Object2Int
 
 	@Override
 	public boolean containsValue(int value) {
-		this.logQuery("containsValue(int)", Log.LOG_STRATEGY.logAnyway());
+		this.logQuery("containsValue(int)", Log.LOG_STRATEGY.test(value));
 		try {
 			return this.wrapped.containsValue(value);
 		} catch (RuntimeException e) {
@@ -55,7 +55,7 @@ public class Object2IntWrappedMap<K> extends AbstractWrappedContainer<Object2Int
 
 	@Override
 	public int put(K key, int value) {
-		this.logModify("put(Object, int)", Log.LOG_STRATEGY.logAnyway());
+		this.logModify("put(Object, int)", Log.LOG_STRATEGY.test(value));
 		try {
 			return this.wrapped.put(key, value);
 		} catch (RuntimeException e) {
@@ -91,7 +91,7 @@ public class Object2IntWrappedMap<K> extends AbstractWrappedContainer<Object2Int
 
 	@Override
 	public void putAll(Map<? extends K, ? extends Integer> m) {
-		this.logModify("putAll(Map)", Log.LOG_STRATEGY.logAnyway());
+		this.logModify("putAll(Map)", m.values().stream().anyMatch(Log.LOG_STRATEGY));
 		try {
 			this.wrapped.putAll(m);
 		} catch (RuntimeException e) {
@@ -111,7 +111,7 @@ public class Object2IntWrappedMap<K> extends AbstractWrappedContainer<Object2Int
 
 	@Override
 	public void defaultReturnValue(int rv) {
-		this.logModify("defaultReturnValue(int)", Log.LOG_STRATEGY.logAnyway());
+		this.logModify("defaultReturnValue(int)", Log.LOG_STRATEGY.test(rv));
 		this.wrapped.defaultReturnValue(rv);
 	}
 
@@ -140,7 +140,7 @@ public class Object2IntWrappedMap<K> extends AbstractWrappedContainer<Object2Int
 
 	@Override
 	public int getOrDefault(Object key, int defaultValue) {
-		this.logQuery("getOrDefault(Object, int)", Log.LOG_STRATEGY.logAnyway());
+		this.logQuery("getOrDefault(Object, int)", Log.LOG_STRATEGY.test(defaultValue));
 		return this.wrapped.getOrDefault(key, defaultValue);
 	}
 
@@ -166,7 +166,7 @@ public class Object2IntWrappedMap<K> extends AbstractWrappedContainer<Object2Int
 
 	@Override
 	public int putIfAbsent(K key, int value) {
-		this.logModify("putIfAbsent(Object, int)", Log.LOG_STRATEGY.logAnyway());
+		this.logModify("putIfAbsent(Object, int)", Log.LOG_STRATEGY.test(value));
 		try {
 			return this.wrapped.putIfAbsent(key, value);
 		} catch (RuntimeException e) {
@@ -176,7 +176,7 @@ public class Object2IntWrappedMap<K> extends AbstractWrappedContainer<Object2Int
 
 	@Override @Nullable
 	public Integer putIfAbsent(K key, Integer value) {
-		this.logModify("putIfAbsent(Object, Integer)", Log.LOG_STRATEGY.logAnyway());
+		this.logModify("putIfAbsent(Object, Integer)", Log.LOG_STRATEGY.test(value));
 		try {
 			return this.wrapped.putIfAbsent(key, value);
 		} catch (RuntimeException e) {
@@ -186,7 +186,7 @@ public class Object2IntWrappedMap<K> extends AbstractWrappedContainer<Object2Int
 
 	@Override
 	public boolean remove(Object key, int value) {
-		this.logModify("remove(Object, int)", Log.LOG_STRATEGY.logAnyway());
+		this.logModify("remove(Object, int)", Log.LOG_STRATEGY.test(value));
 		try {
 			return this.wrapped.remove(key, value);
 		} catch (RuntimeException e) {
@@ -196,7 +196,7 @@ public class Object2IntWrappedMap<K> extends AbstractWrappedContainer<Object2Int
 
 	@Override
 	public boolean remove(Object key, Object value) {
-		this.logModify("remove(Object, Object)", Log.LOG_STRATEGY.logAnyway());
+		this.logModify("remove(Object, Object)", Log.LOG_STRATEGY.test(value));
 		try {
 			return this.wrapped.remove(key, value);
 		} catch (RuntimeException e) {
@@ -206,7 +206,7 @@ public class Object2IntWrappedMap<K> extends AbstractWrappedContainer<Object2Int
 
 	@Override
 	public boolean replace(K key, int oldValue, int newValue) {
-		this.logModify("replace(Object, int, int)", Log.LOG_STRATEGY.logAnyway());
+		this.logModify("replace(Object, int, int)", Log.LOG_STRATEGY.test(newValue));
 		try {
 			return this.wrapped.replace(key, oldValue, newValue);
 		} catch (RuntimeException e) {
@@ -216,7 +216,7 @@ public class Object2IntWrappedMap<K> extends AbstractWrappedContainer<Object2Int
 
 	@Override
 	public int replace(K key, int value) {
-		this.logModify("replace(Object, int)", Log.LOG_STRATEGY.logAnyway());
+		this.logModify("replace(Object, int)", Log.LOG_STRATEGY.test(value));
 		try {
 			return this.wrapped.replace(key, value);
 		} catch (RuntimeException e) {
@@ -226,7 +226,7 @@ public class Object2IntWrappedMap<K> extends AbstractWrappedContainer<Object2Int
 
 	@Override
 	public boolean replace(K key, Integer oldValue, Integer newValue) {
-		this.logModify("replace(Object, Integer, Integer)", Log.LOG_STRATEGY.logAnyway());
+		this.logModify("replace(Object, Integer, Integer)", Log.LOG_STRATEGY.test(newValue));
 		try {
 			return this.wrapped.replace(key, oldValue, newValue);
 		} catch (RuntimeException e) {
@@ -236,7 +236,7 @@ public class Object2IntWrappedMap<K> extends AbstractWrappedContainer<Object2Int
 
 	@Override @Nullable
 	public Integer replace(K key, Integer value) {
-		this.logModify("replace(Object, Integer)", Log.LOG_STRATEGY.logAnyway());
+		this.logModify("replace(Object, Integer)", Log.LOG_STRATEGY.test(value));
 		try {
 			return this.wrapped.replace(key, value);
 		} catch (RuntimeException e) {
@@ -316,7 +316,7 @@ public class Object2IntWrappedMap<K> extends AbstractWrappedContainer<Object2Int
 
 	@Override
 	public int merge(K key, int value, BiFunction<? super Integer, ? super Integer, ? extends Integer> remappingFunction) {
-		this.logModify("merge(Object, int, BiFunction)", Log.LOG_STRATEGY.logAnyway());
+		this.logModify("merge(Object, int, BiFunction)", Log.LOG_STRATEGY.test(value));
 		try {
 			return this.wrapped.merge(key, value, remappingFunction);
 		} catch (RuntimeException e) {
@@ -326,7 +326,7 @@ public class Object2IntWrappedMap<K> extends AbstractWrappedContainer<Object2Int
 
 	@Override
 	public int mergeInt(K key, int value, IntBinaryOperator remappingFunction) {
-		this.logModify("mergeInt(Object, int, IntBinaryOperator)", Log.LOG_STRATEGY.logAnyway());
+		this.logModify("mergeInt(Object, int, IntBinaryOperator)", Log.LOG_STRATEGY.test(value));
 		try {
 			return this.wrapped.mergeInt(key, value, remappingFunction);
 		} catch (RuntimeException e) {

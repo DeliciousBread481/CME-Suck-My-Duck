@@ -30,7 +30,7 @@ public class IntWrappedSet extends AbstractWrappedContainer<IntSet> implements I
 
 	@Override
 	public boolean contains(int o) {
-		this.logQuery("contains(int)", Log.LOG_STRATEGY.logAnyway());
+		this.logQuery("contains(int)", Log.LOG_STRATEGY.test(o));
 		try {
 			return this.wrapped.contains(o);
 		} catch (RuntimeException e) {
@@ -82,7 +82,7 @@ public class IntWrappedSet extends AbstractWrappedContainer<IntSet> implements I
 
 	@Override
 	public boolean add(int t) {
-		this.logModify("add(int)", Log.LOG_STRATEGY.logAnyway());
+		this.logModify("add(int)", Log.LOG_STRATEGY.test(t));
 		try {
 			return this.wrapped.add(t);
 		} catch (RuntimeException e) {
@@ -92,7 +92,7 @@ public class IntWrappedSet extends AbstractWrappedContainer<IntSet> implements I
 
 	@Override
 	public boolean remove(int o) {
-		this.logModify("remove(int)", Log.LOG_STRATEGY.logAnyway());
+		this.logModify("remove(int)", Log.LOG_STRATEGY.test(o));
 		try {
 			return this.wrapped.remove(o);
 		} catch (RuntimeException e) {
@@ -102,7 +102,7 @@ public class IntWrappedSet extends AbstractWrappedContainer<IntSet> implements I
 
 	@Override
 	public boolean containsAll(Collection<?> c) {
-		this.logQuery("containsAll(Collection)", Log.LOG_STRATEGY.logAnyway());
+		this.logQuery("containsAll(Collection)", c.stream().anyMatch(Log.LOG_STRATEGY));
 		try {
 			return this.wrapped.containsAll(c);
 		} catch (RuntimeException e) {
@@ -112,7 +112,7 @@ public class IntWrappedSet extends AbstractWrappedContainer<IntSet> implements I
 
 	@Override
 	public boolean addAll(Collection<? extends Integer> c) {
-		this.logModify("addAll(Collection)", Log.LOG_STRATEGY.logAnyway());
+		this.logModify("addAll(Collection)", c.stream().anyMatch(Log.LOG_STRATEGY));
 		try {
 			return this.wrapped.addAll(c);
 		} catch (RuntimeException e) {
@@ -122,7 +122,7 @@ public class IntWrappedSet extends AbstractWrappedContainer<IntSet> implements I
 
 	@Override
 	public boolean removeAll(Collection<?> c) {
-		this.logModify("removeAll(Collection)", Log.LOG_STRATEGY.logAnyway());
+		this.logModify("removeAll(Collection)", c.stream().anyMatch(Log.LOG_STRATEGY));
 		try {
 			return this.wrapped.removeAll(c);
 		} catch (RuntimeException e) {
@@ -132,7 +132,7 @@ public class IntWrappedSet extends AbstractWrappedContainer<IntSet> implements I
 
 	@Override
 	public boolean retainAll(Collection<?> c) {
-		this.logModify("retainAll(Collection)", Log.LOG_STRATEGY.logAnyway());
+		this.logModify("retainAll(Collection)", c.stream().anyMatch(Log.LOG_STRATEGY));
 		try {
 			return this.wrapped.retainAll(c);
 		} catch (RuntimeException e) {
@@ -142,7 +142,7 @@ public class IntWrappedSet extends AbstractWrappedContainer<IntSet> implements I
 
 	@Override
 	public boolean containsAll(IntCollection c) {
-		this.logQuery("containsAll(IntCollection)", Log.LOG_STRATEGY.logAnyway());
+		this.logQuery("containsAll(IntCollection)", c.intStream().boxed().anyMatch(Log.LOG_STRATEGY));
 		try {
 			return this.wrapped.containsAll(c);
 		} catch (RuntimeException e) {
@@ -152,7 +152,7 @@ public class IntWrappedSet extends AbstractWrappedContainer<IntSet> implements I
 
 	@Override
 	public boolean addAll(IntCollection c) {
-		this.logModify("addAll(IntCollection)", Log.LOG_STRATEGY.logAnyway());
+		this.logModify("addAll(IntCollection)", c.intStream().boxed().anyMatch(Log.LOG_STRATEGY));
 		try {
 			return this.wrapped.addAll(c);
 		} catch (RuntimeException e) {
@@ -162,7 +162,7 @@ public class IntWrappedSet extends AbstractWrappedContainer<IntSet> implements I
 
 	@Override
 	public boolean removeAll(IntCollection c) {
-		this.logModify("removeAll(IntCollection)", Log.LOG_STRATEGY.logAnyway());
+		this.logModify("removeAll(IntCollection)", c.intStream().boxed().anyMatch(Log.LOG_STRATEGY));
 		try {
 			return this.wrapped.removeAll(c);
 		} catch (RuntimeException e) {
@@ -172,7 +172,7 @@ public class IntWrappedSet extends AbstractWrappedContainer<IntSet> implements I
 
 	@Override
 	public boolean retainAll(IntCollection c) {
-		this.logModify("retainAll(IntCollection)", Log.LOG_STRATEGY.logAnyway());
+		this.logModify("retainAll(IntCollection)", c.intStream().boxed().anyMatch(Log.LOG_STRATEGY));
 		try {
 			return this.wrapped.retainAll(c);
 		} catch (RuntimeException e) {
