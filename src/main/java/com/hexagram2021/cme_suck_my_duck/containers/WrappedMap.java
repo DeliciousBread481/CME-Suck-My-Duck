@@ -104,7 +104,7 @@ public class WrappedMap<K, V> extends AbstractWrappedContainer<Map<K, V>> implem
 	@Override
 	public Collection<V> values() {
 		this.logQuery("values()", Log.LOG_STRATEGY.logAnyway());
-		return this.wrapped.values();
+		return new WrappedCollection<>(this.wrapped.values(), this.traceId);
 	}
 
 	@Override

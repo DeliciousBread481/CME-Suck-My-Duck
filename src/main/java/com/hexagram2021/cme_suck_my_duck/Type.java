@@ -13,6 +13,7 @@ public enum Type {
 	LIST("List", "Ljava/util/List;", Containers::newWrappedList),
 	SET("Set", "Ljava/util/Set;", Containers::newWrappedSet),
 	MAP("Map", "Ljava/util/Map;", Containers::newWrappedMap),
+	COLLECTION("Collection", "Ljava/util/Collection;", Containers::newWrappedCollection),
 	ITERATOR("Iterator", "Ljava/util/Iterator;", Containers::newWrappedIterator),
 	LIST_ITERATOR("ListIterator", "Ljava/util/ListIterator;", Containers::newWrappedListIterator),
 	@Deprecated @SuppressWarnings("java:S1874")

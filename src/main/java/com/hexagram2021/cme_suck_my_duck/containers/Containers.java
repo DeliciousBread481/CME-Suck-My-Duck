@@ -57,6 +57,20 @@ public final class Containers {
 		}
 		return Collections.emptyMap();
 	}
+	public static <T> Collection<T> newWrappedCollection(Object wrapped) {
+		try {
+			if(Log.canWrap()) {
+				if(TRANSFORM_TO_THREAD_SAFE) {
+					return Collections.synchronizedCollection((Collection<T>) wrapped);
+				}
+				return new WrappedCollection<>((Collection<T>) wrapped);
+			}
+			return (Collection<T>) wrapped;
+		} catch (ClassCastException e) {
+			logger.fatal(e);
+		}
+		return Collections.emptyList();
+	}
 	public static <T> Iterator<T> newWrappedIterator(Object wrapped) {
 		try {
 			if(Log.canWrap()) {
