@@ -20,17 +20,21 @@ import java.util.Objects;
 import static com.hexagram2021.cme_suck_my_duck.utils.SharedConstants.LOG_PATH;
 
 public class CMESuckMyDuck {
-	public static final Gson GSON = new Gson();
-	public static final Log logger = new Log(LOG_PATH, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING, StandardOpenOption.WRITE);
+	private static final Gson GSON = new Gson();
+	private static final Log logger = new Log(LOG_PATH, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING, StandardOpenOption.WRITE);
+
 	public static final int ASM_API_VERSION;
-	public static final boolean INJECT_METHOD;
-	@Nullable
-	public static final Integer LOCAL_VAR_INDEX;
 
-	public static final Integer MATCH_LOCAL_INDEX;
+	static final boolean INJECT_METHOD;
+	@Nullable
+	static final Integer LOCAL_VAR_INDEX;
+
+	static final Integer MATCH_LOCAL_INDEX;
 
 	@Nullable
-	public static final String TRACE_ID_UPDATER;
+	static final String TRACE_ID_UPDATER;
+
+	public static final boolean INJECT_DIRECTLY_RETURN;
 
 	public static void main(String[] args) {
 		if(args.length == 3) {
@@ -197,5 +201,13 @@ public class CMESuckMyDuck {
 		MATCH_LOCAL_INDEX = matchLocalIndex;
 
 		TRACE_ID_UPDATER = System.getProperty("cme_suck_my_duck.trace_id_updater");
+
+		boolean injectDirectlyReturn = false;
+		try {
+			injectDirectlyReturn = Boolean.parseBoolean(System.getProperty("cme_suck_my_duck.inject_directly_return"));
+		} catch (Exception ignored) {
+			// Ignored
+		}
+		INJECT_DIRECTLY_RETURN = injectDirectlyReturn;
 	}
 }

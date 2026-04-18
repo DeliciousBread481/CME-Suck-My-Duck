@@ -37,9 +37,30 @@ public class InjectLogTransformer implements ClassFileTransformer {
 								public void visitCode() {
 									super.visitCode();
 									Containers.logger.info("Injecting...");
-									this.visitMethodInsn(Opcodes.INVOKESTATIC, "com/hexagram2021/cme_suck_my_duck/utils/TraceIdGenerator", "getGlobalTraceId", "()Ljava/lang/String;", false);
-									this.visitLdcInsn("Trace");
-									this.visitMethodInsn(Opcodes.INVOKESTATIC, "com/hexagram2021/cme_suck_my_duck/utils/TraceLogger", "info", "(Ljava/lang/String;Ljava/lang/String;)V", false);
+									if(CMESuckMyDuck.INJECT_DIRECTLY_RETURN) {
+										if(descriptor.endsWith(")V")) {
+											this.visitInsn(Opcodes.RETURN);
+										} else if(descriptor.endsWith(")Z") || descriptor.endsWith(")I") || descriptor.endsWith(")B") || descriptor.endsWith(")C") || descriptor.endsWith(")S")) {
+											this.visitInsn(Opcodes.ICONST_0);
+											this.visitInsn(Opcodes.IRETURN);
+										} else if(descriptor.endsWith(")J")) {
+											this.visitInsn(Opcodes.LCONST_0);
+											this.visitInsn(Opcodes.LRETURN);
+										} else if(descriptor.endsWith(")F")) {
+											this.visitInsn(Opcodes.FCONST_0);
+											this.visitInsn(Opcodes.FRETURN);
+										} else if(descriptor.endsWith(")D")) {
+											this.visitInsn(Opcodes.DCONST_0);
+											this.visitInsn(Opcodes.DRETURN);
+										} else {
+											this.visitInsn(Opcodes.ACONST_NULL);
+											this.visitInsn(Opcodes.ARETURN);
+										}
+									} else {
+										this.visitMethodInsn(Opcodes.INVOKESTATIC, "com/hexagram2021/cme_suck_my_duck/utils/TraceIdGenerator", "getGlobalTraceId", "()Ljava/lang/String;", false);
+										this.visitLdcInsn("Trace");
+										this.visitMethodInsn(Opcodes.INVOKESTATIC, "com/hexagram2021/cme_suck_my_duck/utils/TraceLogger", "info", "(Ljava/lang/String;Ljava/lang/String;)V", false);
+									}
 									Containers.logger.info("Injected.");
 								}
 							};
